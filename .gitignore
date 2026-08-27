@@ -1,0 +1,5 @@
+*.ipk
+*.chlsj
+
+__pycache__/
+tv.py

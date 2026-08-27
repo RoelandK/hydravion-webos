@@ -1,0 +1,18 @@
+{
+  "id": "com.hydravion.tv.service",
+  "description": "Hydravion auth proxy, logging & live chat service",
+  "services": [
+    {
+      "name": "com.hydravion.tv.service",
+      "description": "Relays auth requests to Keycloak, forwards logs, proxies live chat WebSocket",
+      "methods": [
+        { "name": "auth" },
+        { "name": "api" },
+        { "name": "log" },
+        { "name": "chat_connect" },
+        { "name": "chat_send" },
+        { "name": "chat_disconnect" }
+      ]
+    }
+  ]
+}

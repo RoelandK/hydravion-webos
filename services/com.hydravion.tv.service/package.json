@@ -1,0 +1,9 @@
+{
+  "name": "com.hydravion.tv.service",
+  "version": "2.2.0",
+  "description": "Hydravion background service for auth, logging & live chat",
+  "main": "service.js",
+  "dependencies": {
+    "ws": "^7.5.10"
+  }
+}

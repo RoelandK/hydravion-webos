@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Main Bookmark Frame (Open bottom-right corner) -->
+  <path d="M19 11V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v16l7-5 3.5 2.5" />
+  
+  <!-- Centered Play Arrow -->
+  <polygon points="10 8 15 11 10 14 10 8" fill="currentColor" stroke="none" />
+  
+  <!-- Checkmark Badge (Shifted Right) -->
+  <polyline points="17 16 19.5 18 23.5 13" />
+</svg>
