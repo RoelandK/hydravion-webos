@@ -49,7 +49,7 @@ Unofficial Floatplane client for LG Smart TV (webOS). Floatplane-style UI.
 .\build.ps1
 ```
 
-Output: `com.hydravion.tv_2.0.0_all.ipk` (plus `com.hydravion.tv_debug_2.0.0_all.ipk` / `com.hydravion.tv_release_2.0.0_all.ipk`) - produced by either script.
+Output: `com.hydravion.tv_2.2.0_all.ipk` (plus `com.hydravion.tv_debug_2.2.0_all.ipk` / `com.hydravion.tv_release_2.2.0_all.ipk`) - produced by either script.
 
 ## Developer Deployment to LG TV
 
@@ -91,12 +91,12 @@ Or toggle Developer Mode on the TV app to ensure it's active. A key icon in the 
 ares-package .
 ```
 
-This creates `com.hydravion.tv_2.0.0_all.ipk`.
+This creates `com.hydravion.tv_2.2.0_all.ipk`.
 
 ### Step 5: Install to TV
 
 ```bash
-ares-install -d tv com.hydravion.tv_2.0.0_all.ipk
+ares-install -d tv com.hydravion.tv_2.2.0_all.ipk
 ```
 
 ### Step 6: Launch
@@ -111,7 +111,7 @@ Or find the app in your TV's app launcher.
 
 ```bash
 ares-install -d tv --remove com.hydravion.tv
-ares-install -d tv com.hydravion.tv_2.0.0_all.ipk
+ares-install -d tv com.hydravion.tv_2.2.0_all.ipk
 ares-launch -d tv com.hydravion.tv
 ```
 
