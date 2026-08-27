@@ -1,0 +1,7 @@
+# Normalize all text files to LF in the Git index
+# Working-tree line endings are handled per-platform (autocrlf)
+* text=auto
+
+# Files that must never be normalized
+*.ipk binary
+*.chlsj binary

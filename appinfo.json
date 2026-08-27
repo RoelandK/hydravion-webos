@@ -1,0 +1,22 @@
+{
+  "id": "com.hydravion.tv",
+  "version": "2.2.0",
+  "vendor": "Hydravion",
+  "type": "web",
+  "main": "index.html",
+  "title": "Hydravion",
+  "appDescription": "Unofficial Floatplane client for LG Smart TVs. Browsable channels, search, and resolution selection.",
+  "icon": "icon.png",
+  "largeIcon": "largeIcon.png",
+  "resolution": "1920x1080",
+  "disableBackHistoryAPI": true,
+  "transparent": false,
+  "enableCrossDomainAccess": true,
+  "access": [
+    { "url": "https://auth.floatplane.com", "launch": false },
+    { "url": "https://www.floatplane.com", "launch": false },
+    { "url": "https://pbs.floatplane.com", "launch": false },
+    { "url": "https://chat.floatplane.com", "launch": false },
+    { "url": "wss://chat.floatplane.com", "launch": false }
+  ]
+}

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=1080, initial-scale=1.0">
+  <title>Hydravion</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script defer src="lib/shaka-player.compiled.js"></script>
+  <script defer src="lib/qrcode.js"></script>
+  <script defer src="webOSjs/webOSTV.js"></script>
+  <script defer src="js/api.js"></script>
+  <script defer src="js/player.js"></script>
+  <script defer src="js/chat.js"></script>
+  <script defer src="js/live.js"></script>
+  <script defer src="js/keymap.js"></script>
+  <script defer src="js/app-ctx.js"></script>
+  <script defer src="js/sidebar.js"></script>
+  <script defer src="js/views/login.js"></script>
+  <script defer src="js/views/notifications.js"></script>
+  <script defer src="js/views/search.js"></script>
+  <script defer src="js/views/browse.js"></script>
+  <script defer src="js/views/creator.js"></script>
+  <script defer src="js/views/details.js"></script>
+  <script defer src="js/views/history.js"></script>
+  <script defer src="js/views/watchlater.js"></script>
+  <script defer src="js/views/activity.js"></script>
+  <script defer src="js/views/account.js"></script>
+  <script defer src="js/views/discover.js"></script>
+  <script defer src="js/views/player.js"></script>
+  <script defer src="js/views/settings.js"></script>
+  <script defer src="js/app.js"></script>
+</head>
+<body>
+  <!-- LEFT RAIL (YouTube-TV style drawer). Collapsed by default;
+       opens on Left at the leftmost element, closes on Right/Back.
+       Hamburger toggles a narrow icon-only state (text hidden). -->
+  <nav id="sidebar" class="hidden">
+    <div class="side-logo-row">
+      <button class="side-close" data-action="toggle" tabindex="0" aria-label="Collapse menu"><span></span><span></span><span></span></button>
+    </div>
+    <button class="side-item" data-action="home" tabindex="0">
+      <svg class="side-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span class="side-item-label">Home</span>
+    </button>
+    <button class="side-item" data-action="history" tabindex="0">
+      <svg class="side-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span class="side-item-label">Watch History</span>
+    </button>
+    <button class="side-item" data-action="watchlater" tabindex="0">
+      <svg class="side-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/><polygon points="10 8 15 11 10 14 10 8" fill="currentColor" stroke="none"/></svg>
+      <span class="side-item-label">Watch Later</span>
+    </button>
+    <button class="side-item" data-action="activity" tabindex="0">
+      <svg class="side-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      <span class="side-item-label">Activity</span>
+    </button>
+    <button class="side-item" data-action="account" tabindex="0">
+      <svg class="side-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a8 8 0 0 1 16 0v1"/></svg>
+      <span class="side-item-label">Account</span>
+    </button>
+    <button class="side-item" data-action="discover" tabindex="0">
+      <svg class="side-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+      <span class="side-item-label">Discover</span>
+    </button>
+    <button class="side-item" data-action="live" tabindex="0">
+      <svg class="side-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+      <span class="side-item-label">Live Streams</span>
+    </button>
+    <div class="side-divider"></div>
+    <button class="side-item" data-action="search" tabindex="0">
+      <svg class="side-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <span class="side-item-label">Search</span>
+    </button>
+    <button class="side-item" data-action="settings" tabindex="0">
+      <svg class="side-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      <span class="side-item-label">Settings</span>
+    </button>
+    <div class="side-divider"></div>
+    <div class="side-section-label">Creators</div>
+    <div id="side-creators"></div>
+  </nav>
+
+  <!-- LOADING -->
+  <div id="view-loading" class="view">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- LOGIN -->
+  <div id="view-login" class="view hidden">
+    <div class="login-split">
+      <!-- LEFT: Floatplane-branded welcome / new users -->
+      <div class="login-left">
+        <div class="login-left-inner">
+          <div class="login-brand">
+            <svg class="login-plane" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.3c.4-.2.6-.6.5-1.1z"/></svg>
+            <h1>Hydravion</h1>
+            <div class="login-brand-sub">for Floatplane</div>
+          </div>
+          <div class="login-hello">
+            <h2>Hello there!</h2>
+            <p>Stream your favorite creators' exclusive content<br>right on your TV, ad-free, in high quality.</p>
+          </div>
+          <div class="login-new">
+            <div class="login-new-title">Don't have an account yet?</div>
+            <p class="login-new-sub">Create one in under a minute at floatplane.com,<br>then scan the code on the right to sign in.</p>
+            <div id="signup-qr" class="login-signup-qr"></div>
+            <div class="login-signup-url">floatplane.com</div>
+          </div>
+        </div>
+      </div>
+      <!-- RIGHT: existing members scan to log in -->
+      <div class="login-right">
+        <div class="login-right-inner">
+          <div class="login-right-head">
+            <span class="login-right-kicker">Already a member?</span>
+            <h2>Log in to your TV</h2>
+            <p>Scan the QR code to log in your TV<br>to your Floatplane account!</p>
+          </div>
+          <div id="login-qr" class="login-qr-host"></div>
+          <div class="login-code-box">
+            <span class="login-code-label">…or enter this code</span>
+            <span id="login-code"></span>
+          </div>
+          <span id="login-url"></span>
+          <div id="login-timer" class="login-timer"></div>
+          <button id="btn-login" class="login-retry" tabindex="0">↻ Retry</button>
+          <div id="login-debug" class="login-debug"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BROWSE (subscription grid) -->
+  <div id="view-browse" class="view hidden">
+    <div id="browse-header">
+      <div class="logo">Hydravion</div>
+      <div id="search-box">
+        <input id="search-input" type="text" placeholder="Search videos..." aria-label="Search videos">
+        <button id="search-btn" aria-label="Search">Search</button>
+        <button id="search-clear" aria-label="Clear search">✕</button>
+        <button id="btn-settings" class="header-btn">Settings</button>
+        <button id="btn-notif" class="header-btn" aria-label="Notifications"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span id="notif-badge" class="hidden"></span></button>
+      </div>
+      </div>
+      <div id="notif-dropdown" class="hidden">
+        <div class="notif-header">Notifications</div>
+        <div id="notif-list"></div>
+        <button id="notif-clear" class="action-btn secondary" style="margin-top:8px;width:100%">Clear all</button>
+      </div>
+      <div id="browse-rows"></div>
+  </div>
+
+  <!-- CREATOR (cover banner + channel pills + video grid) -->
+  <div id="view-creator" class="view hidden">
+    <div id="creator-header">
+      <span class="creator-search-back">← Back</span>
+      <div class="creator-search-box">
+        <input id="creator-search-input" type="text" placeholder="Search videos..." aria-label="Search videos">
+        <button id="creator-search-btn" aria-label="Search">Search</button>
+        <button id="creator-search-clear" aria-label="Clear search">✕</button>
+        <button id="creator-btn-notif" class="header-btn" aria-label="Notifications"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span id="creator-notif-badge" class="hidden"></span></button>
+      </div>
+      </div>
+      <div id="creator-notif-dropdown" class="hidden">
+        <div class="notif-header">Notifications</div>
+        <div id="creator-notif-list"></div>
+        <button id="creator-notif-clear" class="action-btn secondary" style="margin-top:8px;width:100%">Clear all</button>
+      </div>
+      <div id="creator-content"></div>
+  </div>
+
+  <!-- DETAILS -->
+  <div id="view-details" class="view hidden">
+    <div id="details-content"></div>
+  </div>
+
+  <!-- WATCH HISTORY (full creator-style grid) -->
+  <div id="view-history" class="view hidden">
+    <div id="history-header" class="view-header">
+      <span class="view-header-title">Watch History</span>
+    </div>
+    <div id="history-content"></div>
+  </div>
+
+  <!-- WATCH LATER (local, app-only) -->
+  <div id="view-watchlater" class="view hidden">
+    <div id="watchlater-header" class="row-header" style="padding:28px 60px 10px;margin:0">
+      <svg class="wl-logo" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/><polygon points="10 8 15 11 10 14 10 8" fill="currentColor" stroke="none"/></svg>
+      <span class="row-title">Watch Later</span>
+      <button id="wl-clear-all" class="row-clear-all" tabindex="0">✕ Clear all</button>
+    </div>
+    <div id="watchlater-content"></div>
+  </div>
+
+  <!-- ACTIVITY (user comments feed) -->
+  <div id="view-activity" class="view hidden">
+    <div id="activity-header" class="view-header">
+      <span class="view-header-title">Activity</span>
+    </div>
+    <div id="activity-content"></div>
+  </div>
+
+  <!-- ACCOUNT (sub-menu + pages) -->
+  <div id="view-account" class="view hidden">
+    <div id="account-header" class="view-header">
+      <span class="view-header-title">Account</span>
+    </div>
+    <div id="account-content"></div>
+  </div>
+
+  <!-- DISCOVER (browse all creators) -->
+  <div id="view-discover" class="view hidden">
+    <div id="discover-header" class="view-header">
+      <span class="view-header-title">Discover Creators</span>
+    </div>
+    <div id="discover-content"></div>
+  </div>
+
+  <!-- DISCOVER DETAIL (creator info, channels, plans) -->
+  <div id="view-discover-detail" class="view hidden">
+    <div id="discover-detail-content"></div>
+  </div>
+
+  <!-- PLAYER -->
+  <div id="view-player" class="view hidden">
+    <video id="player-video" autoplay></video>
+    <!-- Native media element for audio-only posts (no Shaka - see player.js) -->
+    <audio id="native-audio" preload="auto" style="display:none"></audio>
+    <!-- WMP-era EQ visualizer shown for audio-only posts -->
+    <div id="player-eq" class="hidden" aria-hidden="true">
+      <div class="eq-bars">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+    <!-- Dim + center play icon shown while paused (also OLED burn-in protection) -->
+    <div id="player-pause-dim" class="hidden"></div>
+    <div id="player-pause-center" class="hidden" tabindex="0" aria-label="Resume playback">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+    </div>
+    <div id="player-overlay">
+      <div id="player-title"></div>
+      <div id="player-controls">
+        <button id="player-prev" class="pbtn ctrl" tabindex="0" aria-label="Previous video"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/></svg></button>
+        <button id="player-playpause" class="pbtn ctrl" tabindex="0" aria-label="Play or pause"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg></button>
+        <button id="player-next" class="pbtn ctrl" tabindex="0" aria-label="Next video"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg></button>
+        <div class="progress-bar"><div id="player-progress"></div></div>
+        <div id="player-time">0:00 / 0:00</div>
+      </div>
+      <div id="player-actions">
+        <button id="player-like" class="pbtn" aria-label="Like"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>Like</button>
+        <button id="player-dislike" class="pbtn" aria-label="Dislike"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg>Dislike</button>
+        <button id="player-cc" class="pbtn" tabindex="0">CC</button>
+        <button id="player-speed" class="pbtn" tabindex="0">1x</button>
+        <button id="player-mute" class="pbtn" tabindex="0" aria-label="Mute"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button>
+        <button id="player-hd" class="pbtn" tabindex="0">HD</button>
+        <button id="player-geek" class="pbtn" tabindex="0">Info</button>
+      </div>
+    </div>
+    <!-- Subtitle picker popup -->
+    <div id="player-cc-picker" class="picker-popup hidden">
+      <div class="picker-title">Subtitles</div>
+      <div id="cc-list"></div>
+    </div>
+    <!-- Speed picker popup -->
+    <div id="player-speed-picker" class="picker-popup hidden">
+      <div class="picker-title">Speed</div>
+      <div id="speed-list"></div>
+    </div>
+    <!-- Quality picker popup -->
+    <div id="player-hd-picker" class="picker-popup hidden">
+      <div class="picker-title">Quality</div>
+      <div id="hd-list"></div>
+    </div>
+    <!-- Geek info panel -->
+    <div id="player-geek-panel" class="picker-popup hidden">
+      <div class="picker-title">Technical Info</div>
+      <div id="geek-list"></div>
+    </div>
+  </div>
+
+  <!-- LIVE PLAYER -->
+  <div id="view-live" class="view hidden">
+    <div id="live-main">
+      <div id="live-video-wrap">
+        <video id="live-video" autoplay muted></video>
+        <div id="live-offline" class="hidden">
+          <img id="live-offline-thumb" src="">
+          <div class="live-offline-info">
+            <div id="live-offline-title"></div>
+            <div id="live-offline-desc"></div>
+          </div>
+        </div>
+        <div id="live-controls-bar">
+          <button id="live-back" class="live-btn" tabindex="0">← Back</button>
+          <span id="live-title" class="live-title-text"></span>
+          <span id="live-badge">● LIVE</span>
+          <button id="live-layout-btn" class="live-btn" tabindex="0">⊞ Side</button>
+        </div>
+      </div>
+      <div id="live-chat">
+        <div class="chat-header">Chat <span id="chat-status" class="chat-status"></span></div>
+        <div id="chat-messages"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESOLUTION PICKER (hidden overlay, created by JS if needed) -->
+
+  <!-- STILL WATCHING PROMPT -->
+  <div id="still-watching" class="hidden" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);z-index:100;display:flex;align-items:center;justify-content:center">
+    <div style="background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:40px 50px;text-align:center">
+      <div style="font-size:22px;color:#fff;margin-bottom:12px">Still watching?</div>
+      <div style="font-size:14px;color:#999;margin-bottom:24px">Auto-play will stop if you don't respond</div>
+      <button class="sw-yes action-btn play" style="margin-right:12px">Yes, continue</button>
+      <button class="sw-no action-btn secondary">Stop</button>
+    </div>
+  </div>
+
+  <!-- TOAST → L-27: aria-live for screen reader announcements -->
+  <div id="toast" aria-live="polite"></div>
+
+  <!-- SETTINGS OVERLAY -->
+  <div id="settings-overlay" class="hidden">
+    <div class="settings-dialog">
+      <h3>Settings</h3>
+      <div class="set-row">
+        <span class="set-label">Default Subtitles</span>
+        <button id="set-subs" class="set-btn">On</button>
+      </div>
+      <div class="set-row">
+        <span class="set-label">Preferred Quality</span>
+        <button id="set-quality" class="set-btn">Auto</button>
+      </div>
+      <div class="set-row">
+        <span class="set-label">Subtitle Color</span>
+        <button id="set-sub-color" class="set-btn">White</button>
+      </div>
+      <div class="set-row">
+        <span class="set-label">Subtitle Position</span>
+        <button id="set-sub-offset" class="set-btn">Normal</button>
+      </div>
+      <div class="set-row">
+        <span class="set-label">Auto-play Next</span>
+        <button id="set-autoplay" class="set-btn">On</button>
+      </div>
+      <div class="set-row">
+        <span class="set-label" style="font-size:13px">Hydravion webOS</span>
+        <span class="set-value" style="color:#ddd;font-size:14px" id="app-version">v2.2.0</span>
+      </div>
+      <div class="set-row" style="border-bottom:none">
+        <span class="set-label" style="font-size:13px">Session</span>
+        <button id="set-logout" class="set-btn" style="border-color:#8a2020;color:#e55">Log out</button>
+      </div>
+      <button id="set-close" class="action-btn secondary" style="margin-top:16px;float:none;display:block;width:100%">Done</button>
+    </div>
+  </div>
+</body>
+</html>
