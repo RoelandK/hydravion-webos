@@ -32,7 +32,7 @@ The first time you open the app you land on the login screen. Its split in two.
 
 On the left is the welcome panel. If you dont have a Floatplane account yet, there is a QR code that takes you to floatplane.com so you can make one. Its free and takes a minute. However you will need to pay for a subscription for the specific creators you want to watch (e.g. LTT, Level1Techs etc).
 
-On the right is where you sign in. If you are already a member, scan the QR code with your phone camera and it opens the Floatplane login page with a code already filled in. Confirm it on the phone and the TV signs in by itself, no typing on the TV needed.
+On the right is where you sign in. If you are already a member, scan the QR code with your phone camera and it opens the Floatplane login page with a code already filled in. Confirm it on the phone and the TV signs in by itself, no typing on the TV needed. This means no user or password needs to be entered in the app and it is 100% secure. However you can review the code to make sure everything is above board.
 
 If scanning is being fiddly, the code is also shown as text under the QR. You can type that into the website manually instead.
 
